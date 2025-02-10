@@ -1,1 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sparkle</title>
+  <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+  <!-- Loading Screen -->
+  <div id="loading-screen">Loading...</div>
 
+  <!-- Main App Container -->
+  <div id="app-container" style="display: none;">
+    <!-- Header with Company Name and Menu Button -->
+    <header>
+      <h1>Sparkle✨</h1>
+      <button id="menu-toggle" onclick="toggleMenu()">☰</button>
+    </header>
+
+    <!-- Sliding Menu -->
+    <div id="sliding-menu">
+      <button id="menu-close" onclick="toggleMenu()">✕</button>
+      <div class="menu-content">
+        <button id="login-button" onclick="handleLogin()">Sign Up / Log In</button>
+        <a href="blog.html"><button id="blog-button">View Blog</button></a>
+        <button id="history-button" onclick="showHistoryPanel()">Recently Played</button>
+      </div>
+      <!-- Recently Played History Panel -->
+      <div id="history-panel">
+        <div class="history-header">
+          <button onclick="backToMenu()">← Back</button>
+          <h2>Recently Played</h2>
+        </div>
+        <div id="history-list">
+          <!-- History items will be injected here -->
+        </div>
+        <button class="clear-history" onclick="clearHistory()">Clear History</button>
+      </div>
+    </div>
+
+    <div class="marquee">
+      <p>1) Additional feature: now you can find songs by typing the author (the publisher name) (Search: "Author:authorname"). 2) Sparkle gets new songs and a new UI ✨</p>
+    </div>
+    <!-- Search Bar -->
+    <div class="search-bar">
+      <input type="text" id="search-input" placeholder="Search for music..." oninput="showSuggestions()">
+      <button onclick="searchSong()">Search</button>
+      <ul id="suggestion-box"></ul>
+    </div>
+    <div id="search-result"></div>
+
+    <!-- Song List -->
+    <div id="song-list">
+      <!-- Songs will load dynamically -->
+    </div>
+    <!-- Song Player -->
+    <div id="song-player" style="display: none;">
+      <button id="close-player" onclick="closePlayer()">✖️</button>
+      <img id="song-image" src="" alt="">
+      <h2 id="song-title"></h2>
+      <p id="song-author"></p>
+      <audio id="audio-player" controls></audio>
+    </div>
+    <div id="notification" style="display: none;">
+      <h1>Alert:</h1>
+      <p>We use cookies for better experience.</p>
+      <button id="close-notification" onclick="closeNotification()">Close</button>
+    </div>
+  </div>  
+
+  <footer id="footer">
+    <p>Please wait for 4 to 5 seconds after clicking a song. Having an issue? 
+      <button id="report" onclick="showEmail()">Report now</button>
+    </p>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>
