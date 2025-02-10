@@ -1,1 +1,579 @@
+/* Import Anime-Inspired Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Sawarabi+Gothic&family=Orbitron&display=swap');
 
+/* ==============================================
+   Global & Body
+   ============================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: 'Sawarabi Gothic', sans-serif;
+  background: url('images (3).jpeg'); /* Replace with your anime-style background */
+  background-size: cover;
+  background-attachment: fixed;
+  color: #333;
+  overflow: auto;
+}
+
+/* ==============================================
+   Updated Loading Screen (Anime Minimal Style)
+   ============================================== */
+#loading-screen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(45deg, #0d47a1, #1976d2);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+}
+#loading-screen .spinner {
+  width: 80px;
+  height: 80px;
+  background: url('icon.html'); /* Replace with an image of a sakura flower or anime icon */
+  background-size: contain;
+  background-repeat: no-repeat;
+  animation: rotate 2s linear infinite;
+}
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* ==============================================
+   Header (with improved logo contrast)
+   ============================================== */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  background: linear-gradient(45deg, #0d47a1, #1976d2); /* Darker blue gradient */
+  color: #fff;
+  font-size: 1.8rem;
+  position: relative;
+  z-index: 10;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+header .logo {
+  display: flex;
+  align-items: center;
+}
+header .logo img {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+  border-radius: 50%;
+  border: 2px solid #ff6ec4;
+  /* If your logo is white, the border and slight drop shadow will help it stand out */
+  filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.5));
+}
+header h1 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 2rem;
+  color: #ff6ec4;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+/* ----------------------------------------------
+   Login Button
+---------------------------------------------- */
+#login-button {
+  background: linear-gradient(45deg, #ff6ec4, #7873f5);
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1.1rem;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+#login-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 10px rgba(255, 110, 196, 0.8);
+}
+
+/* ==============================================
+   Search Bar & Suggestion Box
+   ============================================== */
+.search-bar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 30px 0;
+  position: relative;
+}
+.search-bar input {
+  width: 70%;
+  padding: 12px 15px;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 25px;
+  outline: none;
+  background: rgba(255,255,255,0.9);
+  box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+  transition: box-shadow 0.3s ease;
+}
+.search-bar input:focus {
+  box-shadow: inset 0 2px 10px rgba(0,0,0,0.2);
+}
+.search-bar button {
+  padding: 12px 20px;
+  margin-top: 10px;
+  font-size: 1.1rem;
+  border: none;
+  background: linear-gradient(45deg, #ff6ec4, #7873f5);
+  color: #fff;
+  cursor: pointer;
+  border-radius: 25px;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+.search-bar button:hover {
+  transform: scale(1.03);
+}
+#suggestion-box {
+  list-style: none;
+  margin-top: 5px;
+  padding: 0;
+  width: 70%;
+  background: rgba(255,255,255,0.95);
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  position: absolute;
+  top: 60px;
+  z-index: 20;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+/* Adjusted suggestion list items to display image and text side-by-side */
+#suggestion-box li {
+  padding: 12px 15px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+#suggestion-box li:hover {
+  background: rgba(240,240,240,0.8);
+}
+/* Style for the suggestion image */
+#suggestion-box li img.suggestion-image {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+/* ==============================================
+   Song List & Items
+   ============================================== */
+#song-list {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.song-item {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  background: rgba(255,255,255,0.9);
+  border-radius: 15px;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.song-item:hover {
+  transform: translateX(10px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+}
+.song-item img {
+  width: 60px;
+  height: 60px;
+  border-radius: 10px;
+  margin-right: 15px;
+  transition: transform 0.3s ease;
+}
+.song-item:hover img {
+  transform: scale(1.1);
+}
+
+/* ==============================================
+   Song Player
+   ============================================== */
+#song-player {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 600px;
+  padding: 20px;
+  background: rgba(255,255,255,0.8);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 100;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  animation: slideUp 0.5s ease-out;
+}
+@keyframes slideUp {
+  from { transform: translate(-50%, 100%); opacity: 0; }
+  to   { transform: translate(-50%, 0); opacity: 1; }
+}
+#close-player {
+  align-self: flex-end;
+  background: #ff4c4c;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  font-size: 1rem;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+#close-player:hover {
+  background: #e04343;
+}
+#song-player audio {
+  width: 100%;
+  margin-top: 10px;
+  border-radius: 10px;
+  background: #f0f0f0;
+  color: #333;
+  border: 1px solid #ccc;
+  padding: 8px;
+}
+
+/* ==============================================
+   Marquee Animation
+   ============================================== */
+.marquee {
+  height: 50px;
+  overflow: hidden;
+  position: relative;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  text-align: center;
+  padding: 15px;
+  font-family: 'Sawarabi Gothic', sans-serif;
+  box-shadow: 0 -2px 10px rgba(0,0,0,0.2);
+}
+.marquee p {
+  position: absolute;
+  white-space: nowrap;
+  margin: 0;
+  line-height: 20px;
+  text-align: center;
+  transform: translateX(100%);
+  animation: scroll-left 30s linear infinite;
+}
+@keyframes scroll-left {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+
+/* ==============================================
+   Song Image
+   ============================================== */
+#song-image {
+  width: 120px;
+  height: 120px;
+  margin-bottom: 15px;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+/* ==============================================
+   Notification Popup
+   ============================================== */
+#notification {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(255,255,255,0.95);
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+  z-index: 200;
+  animation: fadeIn 0.5s ease;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translate(-50%, -60%); }
+  to   { opacity: 1; transform: translate(-50%, -50%); }
+}
+#notification p {
+  margin-bottom: 15px;
+}
+#close-notification {
+  background: linear-gradient(45deg, #2467ea, #7873f5);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+#close-notification:hover {
+  background: #1a56c3;
+}
+
+/* ==============================================
+   Search Result Popup
+   ============================================== */
+#search-result {
+  text-align: center;
+  margin: 20px auto;
+  background: rgba(255,255,255,0.9);
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  max-width: 600px;
+}
+#search-result p {
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+}
+#search-result button {
+  background: linear-gradient(45deg, #2467ea, #7873f5);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1.1rem;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+#search-result button:hover {
+  transform: scale(1.03);
+  background: #1a56c3;
+}
+
+/* New styles for search result items with images */
+.search-result {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 15px;
+  padding: 10px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.95);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+.search-result img.search-result-image {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+/* ==============================================
+   Sliding Menu
+   ============================================== */
+#sliding-menu {
+    position: fixed;
+    top: 0;
+    right: -300px;
+    width: 300px;
+    height: 100vh;
+    background: linear-gradient(45deg, #0d47a1, #1976d2);
+    z-index: 1000;
+    transition: right 0.3s ease-in-out;
+    box-shadow: -2px 0 10px rgba(0,0,0,0.3);
+}
+#sliding-menu.open {
+    right: 0;
+}
+#menu-toggle {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 10px;
+}
+#menu-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+}
+.menu-content {
+    padding: 80px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* ==============================================
+   Menu Buttons
+   ============================================== */
+#login-button, #blog-button, #history-button {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 25px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    background: linear-gradient(45deg, #ff6ec4, #7873f5);
+    color: white;
+}
+#login-button:hover, #blog-button:hover, #history-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(255, 110, 196, 0.4);
+}
+
+/* ==============================================
+   Recently Played History Panel (Inside Sliding Menu)
+   ============================================== */
+#history-panel {
+    display: none;
+    flex-direction: column;
+    padding: 20px;
+    background: linear-gradient(45deg, #0d47a1, #1976d2);
+    height: 100vh;
+    color: #fff;
+}
+#history-panel .history-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+#history-panel .history-header button {
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+}
+#history-panel .history-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+#history-list {
+    flex: 1;
+    overflow-y: auto;
+}
+.history-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+.history-item:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+.history-item img {
+    width: 50px;
+    height: 50px;
+    border-radius: 8px;
+    margin-right: 10px;
+}
+.history-info {
+    flex: 1;
+}
+.history-info p {
+    margin: 0;
+    font-size: 1rem;
+}
+.history-info span {
+    font-size: 0.8rem;
+    color: #ccc;
+}
+.delete-history {
+    background: #ff4c4c;
+    border: none;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    color: #fff;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+.delete-history:hover {
+    background: #e04343;
+}
+.clear-history {
+    background: linear-gradient(45deg, #ff6ec4, #7873f5);
+    border: none;
+    padding: 8px 15px;
+    border-radius: 25px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+.clear-history:hover {
+    transform: scale(1.05);
+    background: #1a56c3;
+}
+
+/* ==============================================
+   Responsive Design
+   ============================================== */
+@media (max-width: 768px) {
+  .search-bar input {
+    width: 60%;
+  }
+}
+@media (min-width: 769px) {
+  .search-bar input {
+    width: 50%;
+  }
+}
+
+#footer {
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  background: linear-gradient(45deg, #0d47a1, #1976d2);
+  color: #fff;
+  text-align: center;
+  padding: 15px;
+  font-family: 'Sawarabi Gothic', sans-serif;
+  box-shadow: 0 -2px 10px rgba(0,0,0,0.2);
+  z-index: 90;
+}
+
+#footer p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+#report {
+  background: linear-gradient(45deg, #ff6ec4, #7873f5);
+  color: white;
+  border: none;
+  padding: 5px 15px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  margin-left: 10px;
+  transition: transform 0.2s ease;
+}
+
+#report:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 10px rgba(255, 110, 196, 0.4);
+}
