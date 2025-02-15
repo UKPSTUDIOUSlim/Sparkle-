@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Sparkle</title>
   <link href="style.css" rel="stylesheet" type="text/css" />
 </head>
@@ -25,26 +25,53 @@
         <button id="login-button" onclick="handleLogin()">Sign Up / Log In</button>
         <a href="blog.html"><button id="blog-button">View Blog</button></a>
         <button id="history-button" onclick="showHistoryPanel()">Recently Played</button>
+        <button id="liked-songs-button" onclick="showLikedSongsPanel()">Liked Songs</button>
+        <button id="bookmarks-button" onclick="showBookmarksPanel()">Bookmarks</button>
       </div>
+
       <!-- Recently Played History Panel -->
       <div id="history-panel">
         <div class="history-header">
           <button onclick="backToMenu()">← Back</button>
           <h2>Recently Played</h2>
         </div>
-        <div id="history-list">
-          <!-- History items will be injected here -->
-        </div>
+        <div id="history-list"></div>
         <button class="clear-history" onclick="clearHistory()">Clear History</button>
+      </div>
+
+      <!-- Liked Songs Panel -->
+      <div id="liked-songs-panel">
+        <div class="liked-songs-header">
+          <button onclick="backToMenu()">← Back</button>
+          <h2>Liked Songs</h2>
+        </div>
+        <div id="liked-songs-list"></div>
+        <button class="clear-history" onclick="clearLikedSongs()">Clear Liked</button>
+      </div>
+
+      <!-- Bookmarks Panel -->
+      <div id="bookmarks-panel">
+        <div class="bookmarks-header">
+          <button onclick="backToMenu()">← Back</button>
+          <h2>Bookmarks</h2>
+        </div>
+        <div id="bookmarks-list"></div>
+        <button class="clear-history" onclick="clearBookmarks()">Clear Bookmarks</button>
       </div>
     </div>
 
     <div class="marquee">
-      <p>1) Additional feature: now you can find songs by typing the author (the publisher name) (Search: "Author:authorname"). 2) Sparkle gets new songs and a new UI ✨</p>
+      <p>Search by author using "Author:name". Sparkle gets new songs and a new UI ✨</p>
     </div>
+
     <!-- Search Bar -->
     <div class="search-bar">
-      <input type="text" id="search-input" placeholder="Search for music..." oninput="showSuggestions()">
+      <input
+        type="text"
+        id="search-input"
+        placeholder="Search for music..."
+        oninput="showSuggestions()"
+      />
       <button onclick="searchSong()">Search</button>
       <ul id="suggestion-box"></ul>
     </div>
@@ -54,23 +81,72 @@
     <div id="song-list">
       <!-- Songs will load dynamically -->
     </div>
-    <!-- Song Player -->
-    <div id="song-player" style="display: none;">
-      <button id="close-player" onclick="closePlayer()">✖️</button>
-      <img id="song-image" src="" alt="">
-      <h2 id="song-title"></h2>
-      <p id="song-author"></p>
-      <audio id="audio-player" controls></audio>
+
+    <!-- MINI PLAYER (Collapsed) -->
+    <div id="mini-player" style="display: none;">
+      <div id="mini-player-left" onclick="expandPlayer()">
+        <img id="mini-song-image" src="" alt="Song" />
+        <div>
+          <p id="mini-song-title">Song Title</p>
+          <p id="mini-song-author">Song Author</p>
+        </div>
+      </div>
+      <div id="mini-player-controls">
+        <button id="mini-prev-btn" onclick="event.stopPropagation();prevSong();">Prev</button>
+        <button id="mini-play-btn" onclick="event.stopPropagation();togglePlayPause();">Play</button>
+        <button id="mini-next-btn" onclick="event.stopPropagation();nextSong();">Next</button>
+        <!-- Close button (stops song & hides mini player) -->
+        <button id="mini-close-btn" onclick="event.stopPropagation();closeMiniPlayer();">✖</button>
+      </div>
     </div>
+
+    <!-- FULL-PAGE PLAYER -->
+    <div id="full-player" style="display: none;">
+      <!-- Top Bar: Back arrow & Bookmark button -->
+      <div id="full-player-header">
+        <button id="back-to-mini" onclick="collapsePlayer()">←</button>
+        <button id="bookmark-btn" class="player-btn" onclick="toggleBookmarkCurrentSong()">Bookmark</button>
+      </div>
+
+      <!-- Song Image & Info -->
+      <img id="full-song-image" src="" alt="Song Image" />
+      <h2 id="full-song-title"></h2>
+      <p id="full-song-author"></p>
+
+      <!-- Controls row -->
+      <div id="player-controls">
+        <button id="prev-btn" class="player-btn" onclick="prevSong()">Prev</button>
+        <button id="play-btn" class="player-btn" onclick="togglePlayPause()">Play</button>
+        <button id="next-btn" class="player-btn" onclick="nextSong()">Next</button>
+        <button id="like-btn" class="player-btn" onclick="toggleLikeCurrentSong()">♡</button>
+      </div>
+
+      <!-- Time display -->
+      <div id="time-container">
+        <span id="time-current">00:00</span>
+        <span>/</span>
+        <span id="time-total">00:00</span>
+      </div>
+
+      <!-- Seek/Drag Slider -->
+      <div id="progress-container">
+        <input type="range" id="progress-bar" value="0" min="0" max="100" step="1" />
+      </div>
+
+      <!-- Hidden audio element -->
+      <audio id="audio-player"></audio>
+    </div>
+
+    <!-- Notification for Android devices -->
     <div id="notification" style="display: none;">
       <h1>Alert:</h1>
-      <p>We use cookies for better experience.</p>
+      <p>We use cookies for a better experience.</p>
       <button id="close-notification" onclick="closeNotification()">Close</button>
     </div>
-  </div>  
+  </div>
 
   <footer id="footer">
-    <p>Please wait for 4 to 5 seconds after clicking a song. Having an issue? 
+    <p>Please wait a few seconds after clicking a song. Having an issue?
       <button id="report" onclick="showEmail()">Report now</button>
     </p>
   </footer>
