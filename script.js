@@ -22,7 +22,7 @@ function setCookie(name, value, days) {
   let expires = "";
   if (days) {
     const date = new Date();
-    date.setTime(date.getTime() + (days*24*60*60*1000));
+    date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
     expires = "; expires=" + date.toUTCString();
   }
   document.cookie = name + "=" + encodeURIComponent(value) + expires + "; path=/";
@@ -337,42 +337,59 @@ function showSuggestions() {
 function searchSong() {
   const query = document.getElementById("search-input").value.toLowerCase();
   const searchResult = document.getElementById("search-result");
+  let resultsHTML = "";
+
   if (query.startsWith("author:")) {
     const authorQuery = query.substring("author:".length).trim();
     const results = songs.filter(song => song.author.toLowerCase() === authorQuery);
     if (results.length > 0) {
-      searchResult.innerHTML = `<p>Found ${results.length} song(s) by ${results[0].author}:</p>`;
+      resultsHTML += `<p>Found ${results.length} song(s) by ${results[0].author}:</p>`;
       results.forEach(song => {
         const songIndex = songs.indexOf(song);
-        searchResult.innerHTML += `
-          <div class="search-result">
+        resultsHTML += `
+          <div class="result-item" onclick="playSong(${songIndex}); hideSearchResults();">
             <img src="${song.image}" alt="${song.name}" class="search-result-image">
             <div>
               <p>${song.name} by ${song.author}</p>
-              <button onclick="playSong(${songIndex})">Play</button>
             </div>
           </div>
         `;
       });
     } else {
-      searchResult.innerHTML = `<p>Sorry, no songs found for that author (Error code : 402)</p>`;
+      resultsHTML = `<p>Sorry, no songs found for that author (Error code: 402)</p>`;
     }
   } else {
     const result = songs.find(song => song.name.toLowerCase().includes(query));
     if (result) {
-      searchResult.innerHTML = `
-        <div class="search-result">
+      const songIndex = songs.indexOf(result);
+      resultsHTML += `
+        <div class="result-item" onclick="playSong(${songIndex}); hideSearchResults();">
           <img src="${result.image}" alt="${result.name}" class="search-result-image">
           <div>
             <p>Found: ${result.name} by ${result.author}</p>
-            <button onclick="playSong(${songs.indexOf(result)})">Play</button>
           </div>
         </div>
       `;
     } else {
-      searchResult.innerHTML = `<p>Sorry, we couldn't find the song. (Error code : 402)</p>`;
+      resultsHTML = `<p>Sorry, we couldn't find the song. (Error code: 402)</p>`;
     }
   }
+
+  // Build the full-page overlay with a header and back button
+  searchResult.innerHTML = `
+    <div class="search-result-header">
+      <button id="back-button" onclick="hideSearchResults()">Back</button>
+      <h2>Search Results</h2>
+    </div>
+    <div class="search-result-content">
+      ${resultsHTML}
+    </div>
+  `;
+  searchResult.style.display = "flex";
+}
+
+function hideSearchResults() {
+  document.getElementById("search-result").style.display = "none";
 }
 
 /** Load all songs into the list **/
