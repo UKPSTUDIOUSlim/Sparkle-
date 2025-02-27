@@ -11,8 +11,8 @@
 }
 body {
   font-family: 'Sawarabi Gothic', sans-serif;
-  /* New color theme based on attached Sparkle image (sky-blue) */
-  background: linear-gradient(45deg, #4AB3F4, #64B5F6);
+  /* Updated to match menu gradient */
+  background: linear-gradient(135deg, #4AB3F4, #3f51b5);
   background-attachment: fixed;
   color: #333;
   overflow: auto;
@@ -38,33 +38,56 @@ body {
 }
 
 /* ==============================================
-   Header (Sky Blue)
+   Header (Aurora-Inspired)
    ============================================== */
 header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 30px;
-  background: linear-gradient(45deg, #4AB3F4, #64B5F6);
+  padding: 15px 20px;
+  background: linear-gradient(45deg, #00f7ff, #0400ff, #ff0000, #ff00ff);
+  background-size: 400% 400%;
+  animation: aurora 8s ease infinite;
   color: #fff;
-  font-size: 1.8rem;
-  position: relative;
-  z-index: 10;
+  z-index: 100;
   box-shadow: 0 2px 10px rgba(0,0,0,0.2);
 }
-header h1 {
-  font-family: 'Orbitron', sans-serif;
-  font-size: 2rem;
-  color: #fff;
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+@keyframes aurora {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
-#menu-toggle {
-  background: transparent;
+.back-btn {
+  background: rgba(0, 0, 0, 0.3);
   border: none;
-  color: white;
-  font-size: 24px;
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 5px;
   cursor: pointer;
-  padding: 10px;
+  font-size: 14px;
+}
+
+#menu-toggle {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: #fff;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+#menu-toggle:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: rotate(90deg);
 }
 
 /* ==============================================
@@ -79,6 +102,21 @@ header h1 {
   border-radius: 30px;
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+#login-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: 0.5s;
+}
+#login-button:hover::before {
+  left: 100%;
 }
 #login-button:hover {
   transform: scale(1.05);
@@ -92,7 +130,7 @@ header h1 {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 30px 0;
+  margin: 15px 0;
   position: relative;
 }
 .search-bar input {
@@ -100,29 +138,55 @@ header h1 {
   padding: 12px 15px;
   font-size: 1.1rem;
   border: none;
-  border-radius: 25px;
+  border-radius: 12px;
   outline: none;
-  background: rgba(255,255,255,0.9);
-  box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
-  transition: box-shadow 0.3s ease;
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(5px);
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+}
+.search-bar input::placeholder {
+  color: rgba(255, 255, 255, 0.8);
 }
 .search-bar input:focus {
-  box-shadow: inset 0 2px 10px rgba(0,0,0,0.2);
+  background: rgba(255, 255, 255, 0.35);
+  box-shadow: 0 6px 10px rgba(0,0,0,0.15);
 }
 .search-bar button {
   padding: 12px 20px;
   margin-top: 10px;
   font-size: 1.1rem;
   border: none;
-  background: linear-gradient(45deg, #AEDCF9, #87CEEB);
-  color: #333;
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(5px);
+  color: #fff;
   cursor: pointer;
-  border-radius: 25px;
-  transition: background 0.3s ease, transform 0.2s ease;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  position: relative;
+  overflow: hidden;
+}
+.search-bar button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: 0.5s;
+}
+.search-bar button:hover::before {
+  left: 100%;
 }
 .search-bar button:hover {
-  transform: scale(1.03);
-  background: #A1D1ED;
+  transform: translateY(-3px);
+  box-shadow: 0 7px 14px rgba(0,0,0,0.2);
+  background: rgba(255, 255, 255, 0.35);
 }
 #suggestion-box {
   list-style: none;
@@ -144,9 +208,23 @@ header h1 {
   display: flex;
   align-items: center;
   gap: 10px;
+  position: relative;
 }
 #suggestion-box li:hover {
   background: rgba(240,240,240,0.8);
+}
+#suggestion-box li::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: 0.5s;
+}
+#suggestion-box li:hover::before {
+  left: 100%;
 }
 #suggestion-box li img.suggestion-image {
   width: 40px;
@@ -160,6 +238,7 @@ header h1 {
    ============================================== */
 #song-list {
   padding: 20px;
+  margin-top: 10px; /* Reduced space */
   display: flex;
   flex-direction: column;
   gap: 15px;
@@ -168,14 +247,34 @@ header h1 {
   display: flex;
   align-items: center;
   padding: 15px;
-  background: rgba(255,255,255,0.9);
-  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(5px);
+  border-radius: 12px;
   cursor: pointer;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  position: relative;
+  overflow: hidden;
+}
+.song-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: 0.5s;
+}
+.song-item:hover::before {
+  left: 100%;
 }
 .song-item:hover {
-  transform: translateX(10px);
-  box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+  transform: translateY(-3px);
+  box-shadow: 0 7px 14px rgba(0,0,0,0.2);
+  background: rgba(255, 255, 255, 0.35);
 }
 .song-item img {
   width: 60px;
@@ -242,6 +341,21 @@ header h1 {
   margin: 0;
   cursor: pointer;
   transition: transform 0.2s ease, background 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+#mini-player-controls button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: 0.5s;
+}
+#mini-player-controls button:hover::before {
+  left: 100%;
 }
 #mini-player-controls button:hover {
   transform: scale(1.05);
@@ -288,6 +402,21 @@ header h1 {
   border-radius: 25px;
   cursor: pointer;
   transition: background 0.3s ease, transform 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+#bookmark-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: 0.5s;
+}
+#bookmark-btn:hover::before {
+  left: 100%;
 }
 #bookmark-btn:hover {
   background: #FFC107;
@@ -331,6 +460,21 @@ header h1 {
   border-radius: 25px;
   cursor: pointer;
   transition: background 0.3s ease, transform 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+.player-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: 0.5s;
+}
+.player-btn:hover::before {
+  left: 100%;
 }
 .player-btn:hover {
   background: #A1D1ED;
@@ -410,15 +554,18 @@ header h1 {
    Marquee Animation
    ============================================== */
 .marquee {
-  height: 50px;
+  height: 40px;
   overflow: hidden;
   position: relative;
   background: rgba(0, 0, 0, 0.6);
   color: #fff;
   text-align: center;
-  padding: 15px;
+  padding: 10px;
   font-family: 'Sawarabi Gothic', sans-serif;
-  box-shadow: 0 -2px 10px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  margin-top: 70px; /* Adjusted space below fixed header */
+  width: 100%;
+  z-index: 90;
 }
 .marquee p {
   position: absolute;
@@ -457,6 +604,21 @@ header h1 {
   border-radius: 25px;
   cursor: pointer;
   transition: background 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+#close-notification::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: 0.5s;
+}
+#close-notification:hover::before {
+  left: 100%;
 }
 #close-notification:hover {
   background: #A1D1ED;
@@ -499,6 +661,21 @@ header h1 {
   border-radius: 25px;
   cursor: pointer;
   transition: transform 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+.search-result-header button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: 0.5s;
+}
+.search-result-header button:hover::before {
+  left: 100%;
 }
 .search-result-header button:hover {
   transform: scale(1.05);
@@ -513,6 +690,21 @@ header h1 {
   gap: 15px;
   cursor: pointer;
   transition: background 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+.search-result-content .result-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: 0.5s;
+}
+.search-result-content .result-item:hover::before {
+  left: 100%;
 }
 .search-result-content .result-item:hover {
   background: rgba(230, 230, 230, 0.9);
@@ -533,10 +725,12 @@ header h1 {
   right: -300px;
   width: 300px;
   height: 100vh;
-  background: linear-gradient(45deg, #4AB3F4, #64B5F6);
+  background: linear-gradient(135deg, #4AB3F4, #3f51b5);
   z-index: 1000;
   transition: right 0.3s ease-in-out;
-  box-shadow: -2px 0 10px rgba(0,0,0,0.3);
+  box-shadow: -5px 0 20px rgba(0,0,0,0.3);
+  overflow-y: auto;
+  padding-top: 10px;
 }
 #sliding-menu.open {
   right: 0;
@@ -545,17 +739,28 @@ header h1 {
   position: absolute;
   top: 20px;
   right: 20px;
-  background: transparent;
+  background: rgba(255, 255, 255, 0.2);
   border: none;
   color: white;
-  font-size: 24px;
+  font-size: 18px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+#menu-close:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: rotate(90deg);
 }
 .menu-content {
-  padding: 80px 20px;
+  padding: 80px 20px 20px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 15px;
 }
 #login-button,
 #blog-button,
@@ -563,22 +768,50 @@ header h1 {
 #liked-songs-button,
 #bookmarks-button {
   width: 100%;
-  padding: 15px;
+  padding: 12px 15px;
   border: none;
-  border-radius: 25px;
+  border-radius: 12px;
   font-size: 1.1rem;
+  font-weight: 500;
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  background: linear-gradient(45deg, #AEDCF9, #87CEEB);
-  color: #333;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.25);
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  backdrop-filter: blur(5px);
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  position: relative;
+  overflow: hidden;
+}
+#login-button::before,
+#blog-button::before,
+#history-button::before,
+#liked-songs-button::before,
+#bookmarks-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: 0.5s;
+}
+#login-button:hover::before,
+#blog-button:hover::before,
+#history-button:hover::before,
+#liked-songs-button:hover::before,
+#bookmarks-button:hover::before {
+  left: 100%;
 }
 #login-button:hover,
 #blog-button:hover,
 #history-button:hover,
 #liked-songs-button:hover,
 #bookmarks-button:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 15px rgba(163,216,244,0.4);
+  transform: translateY(-3px);
+  box-shadow: 0 7px 14px rgba(0,0,0,0.2);
+  background: rgba(255, 255, 255, 0.35);
 }
 
 /* ==============================================
@@ -588,7 +821,7 @@ header h1 {
   display: none;
   flex-direction: column;
   padding: 20px;
-  background: linear-gradient(45deg, #4AB3F4, #64B5F6);
+  background: linear-gradient(135deg, #4AB3F4, #3f51b5);
   height: 100vh;
   color: #333;
 }
@@ -622,6 +855,21 @@ header h1 {
   border-radius: 10px;
   cursor: pointer;
   transition: background 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+.history-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: 0.5s;
+}
+.history-item:hover::before {
+  left: 100%;
 }
 .history-item:hover {
   background: rgba(240, 240, 240, 0.8);
@@ -713,6 +961,21 @@ header h1 {
   border-radius: 10px;
   cursor: pointer;
   transition: background 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+.liked-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: 0.5s;
+}
+.liked-item:hover::before {
+  left: 100%;
 }
 .liked-item:hover {
   background: rgba(240, 240, 240, 0.8);
@@ -782,6 +1045,21 @@ header h1 {
   border-radius: 10px;
   cursor: pointer;
   transition: background 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+.bookmark-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: 0.5s;
+}
+.bookmark-item:hover::before {
+  left: 100%;
 }
 .bookmark-item:hover {
   background: rgba(240, 240, 240, 0.8);
@@ -811,19 +1089,8 @@ header h1 {
 }
 
 /* ==============================================
-   Responsive
+   Footer
    ============================================== */
-@media (max-width: 768px) {
-  .search-bar input {
-    width: 60%;
-  }
-}
-@media (min-width: 769px) {
-  .search-bar input {
-    width: 50%;
-  }
-}
-
 #footer {
   position: relative;
   bottom: 0;
@@ -850,9 +1117,37 @@ header h1 {
   font-size: 0.9rem;
   margin-left: 10px;
   transition: transform 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+#report::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: 0.5s;
+}
+#report:hover::before {
+  left: 100%;
 }
 #report:hover {
   transform: scale(1.05);
   box-shadow: 0 0 10px rgba(255, 213, 107, 0.4);
 }
 
+/* ==============================================
+   Responsive
+   ============================================== */
+@media (max-width: 768px) {
+  .search-bar input {
+    width: 60%;
+  }
+}
+@media (min-width: 769px) {
+  .search-bar input {
+    width: 50%;
+  }
+}
